@@ -43,15 +43,23 @@
       const json = JSON.parse(data.substr(47).slice(0, -2));
       const row = json.table.rows[0].c;
 
-      const title = row[0]?.v || "";
-      const description = row[1]?.v || "";
-      const banner = row[2]?.v || "";
-      const phone = row[3]?.v || "";
-      const services = row[4]?.v ? row[4].v.split(",") : [];
-      const infoTitle = row[5]?.v || "";
-      const infoText = row[6]?.v || "";
-      const footerText = row[7]?.v || "";
+      const logo = row[0]?.v || "";
+      const title = row[1]?.v || "";
+      const description = row[2]?.v || "";
+      const banner = row[3]?.v || "";
+      const phone = row[4]?.v || "";
+      const services = [
+        row[5]?.v, 
+        row[6]?.v, 
+        row[7]?.v, 
+        row[8]?.v, 
+        row[9]?.v
+      ].filter(Boolean);
+      const infoTitle = row[10]?.v || "";
+      const infoText = row[11]?.v || "";
+      const footerText = row[12]?.v || "";
 
+      document.getElementById('logo').src = logo;
       document.getElementById('hero-title').textContent = title;
       document.getElementById('hero-text').textContent = description;
       document.getElementById('hero-image').src = banner;
@@ -71,6 +79,7 @@
       });
     });
 </script>
+
 
 </body>
 </html>
