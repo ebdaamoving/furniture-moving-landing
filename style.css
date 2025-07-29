@@ -90,11 +90,10 @@ body {
 
 .service {
   background: #f4f4f4;
-  padding: 15px;
+  padding: 9px;
   border-radius: 8px;
   font-size: 1.1rem;
 }
-
 .info {
   background: #1e6c36;
   color: white;
