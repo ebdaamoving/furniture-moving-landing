@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "content"
+    label: "محتوى الصفحة"
+    files:
+      - file: "content.json"
+        label: "Landing Page"
+        name: "landing"
+        fields:
+          - { label: "العنوان الرئيسي", name: "title", widget: "string" }
+          - { label: "الوصف", name: "description", widget: "text" }
+          - { label: "صورة البانر", name: "banner", widget: "image" }
+          - { label: "رقم الهاتف", name: "phone", widget: "string" }
+          - { label: "الخدمات", name: "services", widget: "list", field: { label: "خدمة", name: "service", widget: "string" } }
