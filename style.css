@@ -14,7 +14,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     transition: background 0.3s ease;
-  height: 80vh;
+      height: auto;
+    padding: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,6 +79,7 @@ body {
   font-size: 2rem;
   margin-bottom: 20px;
   color: #ff9800;
+  margin-block-start: 0;
 }
 
 .service-list {
@@ -102,6 +104,7 @@ body {
 .info h2 {
   font-size: 1.8rem;
   margin-bottom: 10px;
+  margin-block-start: 0;
 }
 
 footer {
@@ -109,4 +112,10 @@ footer {
   color: white;
   padding: 15px;
   font-size: 0.9rem;
+}
+@media (max-width: 500px) {
+
+.hero{
+    padding: 45px 5px 45px 5px;
+}
 }
