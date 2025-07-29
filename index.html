@@ -34,14 +34,13 @@
   <p>© 2025 شركة الإبداع لنقل الأثاث - الدمام | جميع الحقوق محفوظة</p>
 </footer>
 
+<script>
 fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQxYv-HQ9KnQO_XuxXDRPUZh7C-24JXsMSQbjZkXOkq0hZ2316W9aZ4AeDwtg44b3szn41oZDguEtOw/gviz/tq?tqx=out:json")
   .then(response => response.text())
   .then(data => {
     const json = JSON.parse(data.substr(47).slice(0, -2));
     const row = json.table.rows[0].c;
-
     console.log("Raw row data:", row);
-
     const logo = row[0]?.v || "";
     const title = row[1]?.v || "";
     const description = row[2]?.v || "";
@@ -54,9 +53,7 @@ fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQxYv-HQ9KnQO_XuxXDRPUZh7
       row[8]?.v,
       row[9]?.v
     ].filter(Boolean);
-
     console.log("Services array:", services);
-
     const infoTitle = row[10]?.v || "";
     const infoText = row[11]?.v || "";
     const footerText = row[12]?.v || "";
@@ -82,7 +79,7 @@ fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQxYv-HQ9KnQO_XuxXDRPUZh7
     });
   })
   .catch(err => console.error("Fetch or parsing error:", err));
-
+</script>
 
 </body>
 </html>
