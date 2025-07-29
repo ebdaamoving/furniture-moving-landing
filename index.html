@@ -35,9 +35,7 @@
 </footer>
 
 <script>
-  const sheetURL = "https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/gviz/tq?tqx=out:json";
-
-  fetch(sheetURL)
+  fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQxYv-HQ9KnQO_XuxXDRPUZh7C-24JXsMSQbjZkXOkq0hZ2316W9aZ4AeDwtg44b3szn41oZDguEtOw/gviz/tq?tqx=out:json")
     .then(response => response.text())
     .then(data => {
       const json = JSON.parse(data.substr(47).slice(0, -2));
@@ -49,10 +47,10 @@
       const banner = row[3]?.v || "";
       const phone = row[4]?.v || "";
       const services = [
-        row[5]?.v, 
-        row[6]?.v, 
-        row[7]?.v, 
-        row[8]?.v, 
+        row[5]?.v,
+        row[6]?.v,
+        row[7]?.v,
+        row[8]?.v,
         row[9]?.v
       ].filter(Boolean);
       const infoTitle = row[10]?.v || "";
@@ -79,7 +77,6 @@
       });
     });
 </script>
-
 
 </body>
 </html>
