@@ -34,49 +34,55 @@
   <p>© 2025 شركة الإبداع لنقل الأثاث - الدمام | جميع الحقوق محفوظة</p>
 </footer>
 
-<script>
-  fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQxYv-HQ9KnQO_XuxXDRPUZh7C-24JXsMSQbjZkXOkq0hZ2316W9aZ4AeDwtg44b3szn41oZDguEtOw/gviz/tq?tqx=out:json")
-    .then(response => response.text())
-    .then(data => {
-      const json = JSON.parse(data.substr(47).slice(0, -2));
-      const row = json.table.rows[0].c;
+fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQxYv-HQ9KnQO_XuxXDRPUZh7C-24JXsMSQbjZkXOkq0hZ2316W9aZ4AeDwtg44b3szn41oZDguEtOw/gviz/tq?tqx=out:json")
+  .then(response => response.text())
+  .then(data => {
+    const json = JSON.parse(data.substr(47).slice(0, -2));
+    const row = json.table.rows[0].c;
 
-      const logo = row[0]?.v || "";
-      const title = row[1]?.v || "";
-      const description = row[2]?.v || "";
-      const banner = row[3]?.v || "";
-      const phone = row[4]?.v || "";
-      const services = [
-        row[5]?.v,
-        row[6]?.v,
-        row[7]?.v,
-        row[8]?.v,
-        row[9]?.v
-      ].filter(Boolean);
-      const infoTitle = row[10]?.v || "";
-      const infoText = row[11]?.v || "";
-      const footerText = row[12]?.v || "";
+    console.log("Raw row data:", row);
 
-      document.getElementById('logo').src = logo;
-      document.getElementById('hero-title').textContent = title;
-      document.getElementById('hero-text').textContent = description;
-      document.getElementById('hero-image').src = banner;
-      document.getElementById('phone-link').href = `tel:${phone}`;
-      document.getElementById('phone-link-2').href = `tel:${phone}`;
-      document.querySelector('.info h2').textContent = infoTitle;
-      document.querySelector('.info p').textContent = infoText;
-      document.querySelector('footer p').textContent = footerText;
+    const logo = row[0]?.v || "";
+    const title = row[1]?.v || "";
+    const description = row[2]?.v || "";
+    const banner = row[3]?.v || "";
+    const phone = row[4]?.v || "";
+    const services = [
+      row[5]?.v,
+      row[6]?.v,
+      row[7]?.v,
+      row[8]?.v,
+      row[9]?.v
+    ].filter(Boolean);
 
-      const servicesContainer = document.getElementById('services-list');
-      servicesContainer.innerHTML = '';
-      services.forEach(service => {
-        const div = document.createElement('div');
-        div.className = 'service';
-        div.textContent = service;
-        servicesContainer.appendChild(div);
-      });
+    console.log("Services array:", services);
+
+    const infoTitle = row[10]?.v || "";
+    const infoText = row[11]?.v || "";
+    const footerText = row[12]?.v || "";
+
+    // Update DOM elements
+    document.getElementById('logo').src = logo;
+    document.getElementById('hero-title').textContent = title;
+    document.getElementById('hero-text').textContent = description;
+    document.getElementById('hero-image').src = banner;
+    document.getElementById('phone-link').href = `tel:${phone}`;
+    document.getElementById('phone-link-2').href = `tel:${phone}`;
+    document.querySelector('.info h2').textContent = infoTitle;
+    document.querySelector('.info p').textContent = infoText;
+    document.querySelector('footer p').textContent = footerText;
+
+    const servicesContainer = document.getElementById('services-list');
+    servicesContainer.innerHTML = '';
+    services.forEach(service => {
+      const div = document.createElement('div');
+      div.className = 'service';
+      div.textContent = service;
+      servicesContainer.appendChild(div);
     });
-</script>
+  })
+  .catch(err => console.error("Fetch or parsing error:", err));
+
 
 </body>
 </html>
