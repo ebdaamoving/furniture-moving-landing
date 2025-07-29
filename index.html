@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شركة الإبداع لنقل الأثاث - الدمام</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="overlay"></div>
+  <div class="content">
+    <img id="hero-image" src="images/banner.jpg" alt="نقل الأثاث">
+    <h1 id="hero-title">🚚 شركة الإبداع في نقل الأثاث - الدمام 🏡</h1>
+    <p id="hero-text">نقل أثاثك صار أسهل وأسرع من أي وقت!</p>
+    <a id="phone-link" href="tel:0500000000" class="btn-primary">📞 اتصل الآن</a>
+  </div>
+</header>
+
+<section class="services">
+  <h2>لماذا تختارنا؟</h2>
+  <div id="services-list" class="service-list"></div>
+</section>
+
+<section class="info">
+  <h2>📦 نقل بدون تعب… راحة بالك مسؤوليتنا!</h2>
+  <p>📍 نخدم الدمام وكل مدن الشرقية</p>
+  <a id="phone-link-2" href="tel:0500000000" class="btn-secondary">📞 اتصل الآن وخلّي الإبداع ينقلك!</a>
+</section>
+
+<footer>
+  <p>© 2025 شركة الإبداع لنقل الأثاث - الدمام | جميع الحقوق محفوظة</p>
+</footer>
+
+<script>
+  fetch('content.json')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('hero-title').textContent = data.title;
+      document.getElementById('hero-text').textContent = data.description;
+      document.getElementById('hero-image').src = data.banner;
+      document.getElementById('phone-link').href = `tel:${data.phone}`;
+      document.getElementById('phone-link-2').href = `tel:${data.phone}`;
+      
+      const servicesContainer = document.getElementById('services-list');
+      servicesContainer.innerHTML = '';
+      data.services.forEach(service => {
+        const div = document.createElement('div');
+        div.className = 'service';
+        div.textContent = `✅ ${service}`;
+        servicesContainer.appendChild(div);
+      });
+    });
+</script>
+</body>
+</html>
