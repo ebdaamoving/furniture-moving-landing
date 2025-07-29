@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>شركة الإبداع لنقل الأثاث - الدمام</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <header class="hero">
   <div class="overlay"></div>
   <div class="content">
-    <img id="hero-image" src="images/banner.jpg" alt="نقل الأثاث">
+    <img id="logo" src="" alt="Logo" style="max-width:150px; margin-bottom:10px;" />
+    <img id="hero-image" src="images/banner.jpg" alt="نقل الأثاث" />
     <h1 id="hero-title">🚚 شركة الإبداع في نقل الأثاث - الدمام 🏡</h1>
     <p id="hero-text">نقل أثاثك صار أسهل وأسرع من أي وقت!</p>
     <a id="phone-link" href="tel:0500000000" class="btn-primary">📞 اتصل الآن</a>
@@ -35,13 +36,12 @@
 </footer>
 
 <script>
+const sheetURL = "https://docs.google.com/spreadsheets/d/1NZ26Lf349B1DzgCb-2BFRoOJwJEOk3-zkGgUQuL2h0Y/gviz/tq?tqx=out:json";
+
 fetch(sheetURL)
   .then(response => response.text())
   .then(data => {
-    // Strip extra chars Google adds before JSON
     const json = JSON.parse(data.substr(47).slice(0, -2));
-    
-    // Assuming your data is in first row
     const row = json.table.rows[0].c;
 
     const logo = row[0]?.v || "";
@@ -60,6 +60,7 @@ fetch(sheetURL)
     const infoText = row[11]?.v || "";
     const footerText = row[12]?.v || "";
 
+    document.getElementById('logo').src = logo;
     document.getElementById('hero-title').textContent = title;
     document.getElementById('hero-text').textContent = description;
     document.getElementById('hero-image').src = banner;
@@ -79,7 +80,6 @@ fetch(sheetURL)
     });
   })
   .catch(err => console.error("Error fetching sheet data:", err));
-
 </script>
 
 </body>
