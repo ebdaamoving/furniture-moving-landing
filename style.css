@@ -42,6 +42,9 @@ body {
   max-width: 200px;
   border-radius: 10px;
   margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.05);
+
+    backdrop-filter: blur(2px);
 }
 
 .hero h1 {
