@@ -35,19 +35,27 @@
 </footer>
 
 <script>
-const sheetURL = "https://docs.google.com/spreadsheets/d/1NZ26Lf349B1DzgCb-2BFRoOJwJEOk3-zkGgUQuL2h0Y/gviz/tq?tqx=out:json";
+  const sheetURL = "https://docs.google.com/spreadsheets/d/1NZ26Lf349B1DzgCb-2BFRoOJwJEOk3-zkGgUQuL2h0Y/gviz/tq?tqx=out:json";
 
 fetch(sheetURL)
-  .then(response => response.text())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.text();
+  })
   .then(data => {
+    // Parse Google Visualization API response
     const json = JSON.parse(data.substr(47).slice(0, -2));
-    const row = json.table.rows[0].c;
+    // Use rows[1] for data (rows[0] is headers)
+    const row = json.table.rows[1]?.c || [];
 
-    const logo = row[0]?.v || "";
-    const title = row[1]?.v || "";
-    const description = row[2]?.v || "";
+    // Map data with fallback values
+    const logo = row[0]?.v || "default-logo.png";
+    const title = row[1]?.v || "شركة الإبداع لنقل الأثاث";
+    const description = row[2]?.v || "نقل أثاثك بسهولة وسرعة!";
     const banner = row[3]?.v || "";
-    const phone = row[4]?.v || "";
+    const phone = row[4]?.v || "0500000000";
     const services = [
       row[5]?.v,
       row[6]?.v,
@@ -55,36 +63,39 @@ fetch(sheetURL)
       row[8]?.v,
       row[9]?.v
     ].filter(Boolean);
-    const infoTitle = row[10]?.v || "";
-    const infoText = row[11]?.v || "";
-    const footerText = row[12]?.v || "";
+    const infoTitle = row[10]?.v || "نقل بدون تعب";
+    const infoText = row[11]?.v || "نخدم الدمام وكل مدن الشرقية";
+    const footerText = row[12]?.v || "© 2025 شركة الإبداع لنقل الأثاث";
 
-    // Update content
-    document.getElementById('logo').src = logo;
-    document.getElementById('hero-title').textContent = title;
-    document.getElementById('hero-text').textContent = description;
-    document.getElementById('phone-link').href = `tel:${phone}`;
-    document.getElementById('phone-link-2').href = `tel:${phone}`;
-    document.querySelector('.info h2').textContent = infoTitle;
-    document.querySelector('.info p').textContent = infoText;
-    document.querySelector('footer p').textContent = footerText;
+    // Update DOM
+    document.getElementById("logo").src = logo;
+    document.getElementById("hero-title").textContent = title;
+    document.getElementById("hero-text").textContent = description;
+    document.getElementById("phone-link").href = `tel:${phone}`;
+    document.getElementById("phone-link-2").href = `tel:${phone}`;
+    document.querySelector(".info h2").textContent = infoTitle;
+    document.querySelector(".info p").textContent = infoText;
+    document.querySelector("footer p").textContent = footerText;
 
-    // ✅ Set hero background dynamically
+    // Set hero background
     if (banner) {
-      document.querySelector('.hero').style.backgroundImage = `url('${banner}')`;
+      document.querySelector(".hero").style.backgroundImage = `url('${banner}')`;
     }
 
-    // Add services
-    const servicesContainer = document.getElementById('services-list');
-    servicesContainer.innerHTML = '';
+    // Populate services
+    const servicesContainer = document.getElementById("services-list");
+    servicesContainer.innerHTML = services.length ? "" : "<p>لا توجد خدمات متاحة.</p>";
     services.forEach(service => {
-      const div = document.createElement('div');
-      div.className = 'service';
+      const div = document.createElement("div");
+      div.className = "service";
       div.textContent = service;
       servicesContainer.appendChild(div);
     });
   })
-  .catch(err => console.error("Error fetching sheet data:", err));
+  .catch(err => {
+    console.error("Error fetching sheet data:", err);
+    document.getElementById("services-list").innerHTML = "<p>عذرًا، تعذر تحميل البيانات. حاول لاحقًا.</p>";
+  });
 </script>
 
 </body>
